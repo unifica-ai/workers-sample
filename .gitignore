@@ -1,0 +1,17 @@
+/.cpcache
+/.nrepl-port
+/bin
+/config.edn
+/config.sh
+*.env
+/node_modules
+/secrets.env
+/storage/
+/tailwindcss
+/target
+.calva/
+.clj-kondo/
+.lsp/
+.portal/
+.shadow-cljs/
+/certs/

@@ -1,0 +1,34 @@
+{:app/host     #or [#biff/env "HOST" "0.0.0.0"]
+
+ :app/port     #long #or [#biff/env "PORT" 8080]
+
+ ;; XTDB
+ :biff.xtdb/dir          "storage/xtdb"
+ :biff.xtdb/topology     #keyword #or [#profile {:prod #biff/env PROD_XTDB_TOPOLOGY
+                                                 :default #biff/env XTDB_TOPOLOGY}
+                                       "standalone"]
+ :biff.xtdb.jdbc/jdbcUrl #biff/secret XTDB_JDBC_URL
+
+
+ ;; Temporal
+ :temporal/target #or [#profile {:prod #biff/env TEMPORAL_PROD_TARGET
+                                 :default #biff/env TEMPORAL_TARGET}
+                       "localhost:7233"]
+
+ :temporal/namespace #or [#profile {:prod #biff/env TEMPORAL_PROD_NAMESPACE
+                                    :default #biff/env TEMPORAL_NAMESPACE}
+                          "default"]
+
+ :temporal/enable-https #profile {:prod true :default false}
+
+ :temporal/cert-path #or [#biff/env TEMPORAL_CLIENT_CERT_PATH "client.pem"]
+ :temporal/key-path #or [#biff/env TEMPORAL_CLIENT_KEY "client.key"]
+
+ ;; Main
+ :tasks/main-ns unifica.worker.sample
+
+ :nrepl/port #or [#biff/env NREPL_PORT "8123"]
+ :nrepl/args ["--port" #ref [:nrepl/port]
+              "--middleware" "[cider.nrepl/cider-middleware,refactor-nrepl.middleware/wrap-refactor]"]
+
+ :unifica.worker.sample/origin 40}
